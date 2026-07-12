@@ -1,0 +1,14 @@
+# Build output
+[Bb]in/
+[Oo]bj/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# NuGet packages — not committed on purpose: Guna.UI2.WinForms is a commercial,
+# per-developer-licensed component (see THIRD-PARTY-NOTICES.md), not something
+# to redistribute in a public repo. Restore it yourself before building — see
+# README.md's "Building from source" section.
+packages/
