@@ -123,8 +123,10 @@
       <MergedConfigTmp>$(TargetDir)$(AssemblyName).merged.exe.config</MergedConfigTmp>
       <GunaDll>$(TargetDir)Guna.UI2.dll</GunaDll>
       <MergeHappened>false</MergeHappened>
-      <MergeHappened Condition="Exists('$(GunaDll)')">true</MergeHappened>
+      <MergeHappened Condition="Exists('$(GunaDll)') And Exists('$(ILRepackExe)')">true</MergeHappened>
     </PropertyGroup>
+    <!-- ILRepack.exe is a vendored tool binary, not committed to git - skip the merge
+         step gracefully (e.g. on a fresh CI checkout) instead of failing the build. -->
     <Exec Command="&quot;$(ILRepackExe)&quot; /target:winexe /out:&quot;$(MergedExeTmp)&quot; &quot;$(MergedExe)&quot; &quot;$(GunaDll)&quot;" WorkingDirectory="$(TargetDir)" Condition="'$(MergeHappened)' == 'true'" />
     <Move SourceFiles="$(MergedExeTmp)" DestinationFiles="$(MergedExe)" Condition="'$(MergeHappened)' == 'true'" />
     <Move SourceFiles="$(MergedPdbTmp)" DestinationFiles="$(TargetDir)$(AssemblyName).pdb" Condition="'$(MergeHappened)' == 'true' And Exists('$(MergedPdbTmp)')" />
